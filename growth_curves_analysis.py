@@ -6,10 +6,7 @@ import matplotlib.cm as cm
 from openpyxl import load_workbook
 from pathlib import Path
 
-
-# ----------------------------------------------------------------------
 # 1. LOAD & PARSE
-# ----------------------------------------------------------------------
 
 filepath = input('Path to Excel file: ').strip().strip('"').strip("'")
 wb = load_workbook(filepath, read_only=True)
@@ -62,10 +59,7 @@ for row in rows[header_idx + 1:]:
 
 df = pd.DataFrame(records)
 
-
-# ----------------------------------------------------------------------
 # 2. SUMMARY
-# ----------------------------------------------------------------------
 
 conditions = {}
 for well, name in well_names.items():
@@ -77,10 +71,7 @@ condition_list = list(conditions.items())
 for idx, (name, wells) in enumerate(condition_list):
     print(f'  [{idx}] {name:<20} — wells: {", ".join(wells)}')
 
-
-# ----------------------------------------------------------------------
 # 3. FILTER
-# ----------------------------------------------------------------------
 
 # --- Condition-level filter ---
 cond_input = input('\nConditions to plot (e.g. 0,1,4 — or Enter for all): ').strip()
@@ -110,10 +101,7 @@ if well_input:
 wells_to_plot = [w for wells in selected_conditions.values() for w in wells]
 df_filtered = df[['time_h'] + wells_to_plot]
 
-
-# ----------------------------------------------------------------------
 # 4. PLOT
-# ----------------------------------------------------------------------
 
 title = input('\nPlot title (Enter to use filename): ').strip()
 
