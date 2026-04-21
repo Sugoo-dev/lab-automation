@@ -38,8 +38,8 @@ class GrowthCurveSetup:
     ):
         self.od_targets = od_targets if od_targets is not None else self.DEFAULT_OD_TARGETS
         self.volume_ul  = volume_ul  if volume_ul  is not None else self.DEFAULT_VOLUME_UL
-        self.cpd_conc   = cpd_conc
-        self.cpd_stock  = cpd_stock
+        self.cpd_conc   = cpd_conc if cpd_conc  is not None else self.DEFAULT_CPD_CONC
+        self.cpd_stock  = cpd_stock if cpd_stock is not None else self.DEFAULT_CPD_STOCK
         self.n_cultures = n_cultures
 
         self.od_values = od_values if od_values is not None else self._prompt_od_values()
@@ -74,9 +74,7 @@ class GrowthCurveSetup:
         df_bac = pd.DataFrame(records_bac).set_index('Culture')
         return df_lb, df_bac
 
-    # ------------------------------------------------------------------
-    # Public interface
-    # ------------------------------------------------------------------
+# Public interface
 
     def report(self):
         """Print the full inoculation scheme to stdout."""
@@ -98,10 +96,7 @@ class GrowthCurveSetup:
         """Return (df_lb, df_bac) for downstream use (plotting, export, etc.)."""
         return self._build_volume_tables()
 
-
-# ----------------------------------------------------------------------
 # Entry point
-# ----------------------------------------------------------------------
 
 if __name__ == '__main__':
     print('=== Growth Curve Setup ===')
